@@ -1,0 +1,6 @@
+{
+  "name": "AccessAble Coimbatore",
+  "description": "AI-powered live location accessibility discovery platform for Coimbatore, Tamil Nadu.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
