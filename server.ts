@@ -3,10 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI, Type } from '@google/genai';
-import { COIMBATORE_PLACES } from './src/data/coimbatoreSeed.ts';
-import { calculateDistance, formatDistance, COIMBATORE_CENTER } from './src/utils/distance.ts';
-import { calculateAccessibilityScore } from './src/utils/scoreCalculator.ts';
-import { Place, Review } from './src/types/index.ts';
+// FIX: Removed the '.ts' extensions from all local imports
+import { COIMBATORE_PLACES } from './src/data/coimbatoreSeed';
+import { calculateDistance, formatDistance, COIMBATORE_CENTER } from './src/utils/distance';
+import { calculateAccessibilityScore } from './src/utils/scoreCalculator';
+import { Place, Review } from './src/types/index';
 
 dotenv.config();
 
@@ -505,7 +506,8 @@ Return a JSON object conforming to:
 // ----------------------------------------------------
 
 async function startServer() {
-  const isProduction = process.env.NODE_ENV === 'production';
+  // FORCE production mode if we are on Render (which sets RENDER=true automatically)
+  const isProduction = process.env.NODE_ENV === 'production' || process.env.RENDER === 'true';
 
   if (!isProduction) {
     // Development mode with Vite middleware
@@ -523,6 +525,7 @@ async function startServer() {
     app.get('*', (_req: Request, res: Response) => {
       res.sendFile(path.resolve(distPath, 'index.html'));
     });
+    console.log('📦 Serving static files from dist');
   }
 
   app.listen(PORT, '0.0.0.0', () => {
